@@ -31,6 +31,7 @@ export default function Home() {
         <button className={'mx-auto bg-primary py-3 px-8 text-4xl font-semibold w-fit rounded text-shadow-sm ' + montserrat.className} > Go to events </button>
       </section>
 
+      {/* SPONSORS */}
       <section className='bg-white py-16'>
         <p className='text-black text-xl font-bold text-center'> Thanks to our sponsors! </p>
       </section>
