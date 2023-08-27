@@ -3,6 +3,7 @@ import { Hammersmith_One } from "next/font/google";
 import Image from "next/image";
 import { FaBars } from "react-icons/fa6";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 const volleyMan = '/volleyManWhite.png'
 const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })
@@ -10,6 +11,11 @@ const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })
 
 
 export default function NavBar() {
+    const [open, setOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setOpen(!open);
+    };
 
     return (
         <nav className="flex justify-between bg-black px-6 py-4">
@@ -22,8 +28,8 @@ export default function NavBar() {
                 />
                 <h1 className={'text-3xl ' + hammerSmith.className} >BVB iZoneSV</h1>
             </div>
-            <div> <FaBars className='text-3xl' /> </div>
-            <Sidebar />
+            <div className="cursor-pointer" onClick={toggleSidebar}> <FaBars className='text-3xl' /> </div>
+            <Sidebar open={open} setOpen={setOpen} />
         </nav>
     )
 }

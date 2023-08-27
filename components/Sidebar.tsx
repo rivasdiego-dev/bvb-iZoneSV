@@ -1,9 +1,18 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { FaX } from 'react-icons/fa6'
+import Image from 'next/image'
+import MenuItem from './Sidebar/MenuItem'
 
-export default function Sidebar() {
-    const [open, setOpen] = useState(true)
+interface SidebarProps {
+    open: boolean,
+    setOpen: (value: boolean) => void
+}
+const volleyMan = '/volleyManWhite.png'
+
+export default function Sidebar({ open, setOpen }: SidebarProps) {
+    function handleNavigation(): void {
+        setOpen(!open)
+    }
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -17,7 +26,7 @@ export default function Sidebar() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
+                    <div className="fixed inset-0 bg-neutral-950 bg-opacity-90 transition-all" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-hidden">
@@ -40,15 +49,30 @@ export default function Sidebar() {
                                         leave="ease-in-out duration-500"
                                         leaveFrom="opacity-100"
                                         leaveTo="opacity-0"
-                                    >
-                                    </Transition.Child>
-                                    <div className="flex h-full flex-col overflow-y-scroll bg-black py-6 shadow-xl">
+                                    />
+                                    <div className="flex h-full flex-col overflow-y-hidden bg-black py-6 shadow-xl">
                                         <div className="px-4 sm:px-6">
-                                            <Dialog.Title className="text-base font-semibold leading-6">
-                                                Panel title
+                                            <Dialog.Title className="">
+                                                <Image
+                                                    className='m-auto'
+                                                    src={volleyMan}
+                                                    alt="man-playing"
+                                                    width={24}
+                                                    height={0}
+                                                />
                                             </Dialog.Title>
                                         </div>
-                                        <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
+                                        <div className="flex flex-col justify-between relative mt-6 flex-1 p-4 sm:px-6">
+                                            <div onClick={handleNavigation}>
+                                                <MenuItem item='Home' navigateTo='/' />
+                                                <MenuItem item='Latest Event' navigateTo='/events' />
+                                                <MenuItem item='All events' navigateTo='/events' />
+                                            </div>
+
+                                            <button className="p-2 place-self-end text-lg font-bold w-fit">
+                                                Log In
+                                            </button>
+                                        </div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
