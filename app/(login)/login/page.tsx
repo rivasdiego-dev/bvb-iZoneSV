@@ -1,15 +1,23 @@
 'use client'
 
-import { useState } from "react";
 import { firebaseAuth } from "@/firebase/app";
 import {
-    signInWithEmailAndPassword,
     GoogleAuthProvider,
+    signInWithEmailAndPassword,
     signInWithPopup,
 } from "firebase/auth";
+import { Hammersmith_One, Roboto } from "next/font/google";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaGoogle } from "react-icons/fa6";
 
 type Props = {}
+
+const volleyImage = '/logo.png'
+const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })
+const roboto = Roboto({ subsets: ["latin-ext"], weight: ["100","300","400","500","700","900"] })
+const inputClassname = 'rounded block w-full p-2.5 bg-secondary-900 bg-opacity-50 placeholder-gray-400 text-white focus:outline-none'
 
 export default function Page({ }: Props) {
 
@@ -63,16 +71,42 @@ export default function Page({ }: Props) {
     };
 
     return (
-        <div className="border h-full flex flex-col px-6 justify-center border-lime-600">
-            <div className="px-8 py-4 bg-neutral-900 rounded border border-sky-600">
-                <h1 className="">
-                    Sign in to your account
-                </h1>
+        <div className="h-full flex flex-col gap-6 p-12">
+
+            {/* Logo and title */}
+            <div className="h-full">
+                <Image
+                    className='m-auto my-6'
+                    alt=''
+                    src={volleyImage}
+                    height={200}
+                    width={200}
+                />
+                <h1 className={'text-center w-full tracking-tighter text-5xl ' + hammerSmith.className}> BVB iZone </h1>
+                <h1 className={'text-center w-full tracking-wide text-xl'}> Log in </h1>
+            </div>
+
+            {/* Form */}
+            <div className="h-full flex flex-col">
+                {/* Google Sign In */}
+                <button onClick={handleGoogleLogin} className={"flex items-center mx-8 mb-6 py-2 rounded text-lg tracking-tight font-medium text-neutral-600 bg-white " + roboto.className} >
+                    <FaGoogle className="text-xl w-1/2 text-secondary" />
+                    <p className="w-full mr-6"> Sign in with Google </p>
+                </button>
+
+                {/* Divider */}
+                <div className='flex items-center px-4'>
+                    <div className='w-full h-0 border' />
+                    <p className='w-1/2 text-lg text-center'> or </p>
+                    <div className='w-full h-0 border' />
+                </div>
+
+                {/* Email and password sign in */}
                 <form className="space-y-6 mt-4" onSubmit={handleLogin}>
                     <div>
                         <label
                             htmlFor="email"
-                            className=""
+                            className="block text-white text-sm tracking-wider"
                         >
                             Your email
                         </label>
@@ -81,7 +115,7 @@ export default function Page({ }: Props) {
                             type="email"
                             name="email"
                             id="email"
-                            className=""
+                            className={inputClassname}
                             placeholder="user@email.com"
                             required={true}
                         />
@@ -90,7 +124,7 @@ export default function Page({ }: Props) {
                     <div>
                         <label
                             htmlFor="password"
-                            className=""
+                            className="block text-white text-sm tracking-wider"
                         >
                             Password
                         </label>
@@ -100,26 +134,19 @@ export default function Page({ }: Props) {
                             name="password"
                             id="password"
                             placeholder="••••••••"
-                            className=""
+                            className={inputClassname}
                             required={true}
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className=""
+                        className={"w-full rounded-lg p-2.5 text-2xl font-medium from-primary to-primary-600 bg-gradient-to-tr " + roboto.className}
                     >
                         Sign in
                     </button>
                 </form>
-
-                <p className="w-full text-center"> or </p>
-                <button
-                    onClick={handleGoogleLogin}
-                    className=""
-                >
-                    Sign in with Google
-                </button>
+                <button className="mt-2" onClick={() => {router.replace('/')}}> Go back home </button>
             </div>
         </div>
     )
