@@ -1,6 +1,7 @@
 'use client'
 
 import { firebaseAuth } from "@/firebase/app";
+import { CreateDefaultUser, User, UserExists } from "@/firebase/services/userAuth";
 import {
     GoogleAuthProvider,
     signInWithEmailAndPassword,
@@ -16,7 +17,7 @@ type Props = {}
 
 const volleyImage = '/logo.png'
 const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })
-const roboto = Roboto({ subsets: ["latin-ext"], weight: ["100","300","400","500","700","900"] })
+const roboto = Roboto({ subsets: ["latin-ext"], weight: ["100", "300", "400", "500", "700", "900"] })
 const inputClassname = 'rounded block w-full p-2.5 bg-secondary-900 bg-opacity-50 placeholder-gray-400 text-white focus:outline-none'
 
 export default function Page({ }: Props) {
@@ -43,24 +44,31 @@ export default function Page({ }: Props) {
             });
     };
 
-    const handleGoogleLogin = () => {
-        signInWithPopup(firebaseAuth, googleProvider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                // The signed-in user info.
-                const user = result.user;
-                localStorage.setItem("id", user.uid);
+    const handleGoogleLogin = async () => {
+        try {
+            // Sign in with Google
+            const result = await signInWithPopup(firebaseAuth, googleProvider);
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
 
-                // IdP data available using getAdditionalUserInfo(result)
+            // The signed-in user info: result.user
+            const user: User = {
+                displayName: result.user.displayName,
+                email: result.user.email,
+                id: result.user.uid,
+                roles: [],
+            };
 
-                console.log({ USER: user, CREDENTIAL: credential });
-                router.replace("/");
+            // Check if user exists
+            if (!(await UserExists(user.id)))
+                // If user doesn't exist, create default user
+                await CreateDefaultUser(user);
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            router.replace("/");
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handleInputChange = (
@@ -146,7 +154,7 @@ export default function Page({ }: Props) {
                         Sign in
                     </button>
                 </form>
-                <button className="mt-2" onClick={() => {router.replace('/')}}> Go back home </button>
+                <button className="mt-2" onClick={() => { router.replace('/') }}> Go back home </button>
             </div>
         </div>
     )
