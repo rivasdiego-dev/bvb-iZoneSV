@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
 import MenuItem from './Sidebar/MenuItem'
+import { useRouter } from 'next/navigation'
 
 interface SidebarProps {
     open: boolean,
@@ -10,6 +11,8 @@ interface SidebarProps {
 const volleyMan = '/volleyManWhite.png'
 
 export default function Sidebar({ open, setOpen }: SidebarProps) {
+    const router = useRouter()
+
     function handleNavigation(): void {
         setOpen(!open)
     }
@@ -69,7 +72,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                                                 <MenuItem item='All events' navigateTo='/events' />
                                             </div>
 
-                                            <button className="p-2 place-self-end text-lg font-bold w-fit">
+                                            <button onClick={() => {router.replace('/login'); setOpen(!open);}} className="p-2 place-self-end text-lg font-bold w-fit">
                                                 Log In
                                             </button>
                                         </div>
