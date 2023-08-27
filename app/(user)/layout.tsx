@@ -1,7 +1,7 @@
 import NavBar from '@/components/NavBar'
-import './globals.css'
 import type { Metadata } from 'next'
-import { Roboto_Condensed, Hammersmith_One, Montserrat } from 'next/font/google'
+import { Roboto_Condensed } from 'next/font/google'
+import './globals.css'
 
 const roboto = Roboto_Condensed({ subsets: ['latin'], weight: ['300', '400', '700'] })
 

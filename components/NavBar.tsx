@@ -1,9 +1,9 @@
 'use client'
 import { Hammersmith_One } from "next/font/google";
 import Image from "next/image";
+import { useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
 
 const volleyMan = '/volleyManWhite.png'
 const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })

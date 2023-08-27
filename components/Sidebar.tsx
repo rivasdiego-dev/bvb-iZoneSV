@@ -1,8 +1,8 @@
-import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
-import MenuItem from './Sidebar/MenuItem'
 import { useRouter } from 'next/navigation'
+import { Fragment } from 'react'
+import MenuItem from './Sidebar/MenuItem'
 
 interface SidebarProps {
     open: boolean,

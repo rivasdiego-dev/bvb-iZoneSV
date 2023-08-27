@@ -1,6 +1,5 @@
-import { } from 'react'
+import { FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa6";
 import { GrFacebook } from "react-icons/gr";
-import { FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa6";
 
 
 
