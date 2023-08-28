@@ -1,13 +1,8 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { firebaseDB } from "../app";
+import { User } from "../interfaces";
 
-export type Role = "user" | "admin" | "ref";
-export interface User {
-  id: string;
-  displayName: string | null;
-  email: string | null;
-  roles: Role[];
-}
+
 
 export async function GetAllUsers(): Promise<User[] | undefined> {
   try {
