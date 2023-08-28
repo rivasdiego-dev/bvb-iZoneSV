@@ -96,10 +96,10 @@ export default function Page({ }: Props) {
             </div>
 
             {/* Form */}
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col sm:w-1/3 sm:mx-auto">
                 {/* Google Sign In */}
-                <button onClick={handleGoogleLogin} className={"flex items-center mx-8 mb-6 py-2 rounded text-lg tracking-tight font-medium text-neutral-600 bg-white " + roboto.className} >
-                    <FaGoogle className="text-xl w-1/2 text-secondary" />
+                <button onClick={handleGoogleLogin} className={"flex items-center mx-auto mb-6 py-2 rounded text-lg tracking-tight font-medium sm:w-max text-neutral-600 bg-white " + roboto.className} >
+                    <FaGoogle className="text-xl w-1/2 sm:w-fit sm:px-5 text-secondary" />
                     <p className="w-full mr-6"> Sign in with Google </p>
                 </button>
 

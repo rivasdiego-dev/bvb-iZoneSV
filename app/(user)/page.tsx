@@ -1,9 +1,9 @@
 import Contacts from '@/components/Contacts'
+import GoToEventsBtn from '@/components/GoToEventsBtn'
 import { Hammersmith_One, Montserrat } from 'next/font/google'
 import Image from 'next/image'
 
 const hammerSmith = Hammersmith_One({ subsets: ["latin-ext"], weight: ["400"] })
-const montserrat = Montserrat({ subsets: ['latin-ext'], weight: ['100', '200','300','400','500','600','700','800','900'] })
 const volleyImage = '/logo.png'
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
           This site will keep you updated with the latest information about several beach volleyball events, such as teams playing, the game schedules, results and even standings!
         </p>
         {/* BUTTON */}
-        <button className={'mx-auto bg-primary py-3 px-8 text-4xl font-semibold w-fit rounded text-shadow-sm ' + montserrat.className} > Go to events </button>
+        <GoToEventsBtn />
       </section>
 
       {/* SPONSORS */}

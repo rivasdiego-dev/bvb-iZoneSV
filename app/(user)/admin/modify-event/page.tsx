@@ -14,9 +14,9 @@ export default function Page() {
     <div className="min-h-full">
       <div className="relative border border-black">
         <button onClick={handleGoBack} className="text-3xl absolute top-2 left-3"> <FaArrowLeftLong /> </button>
-        <h1 className='text-5xl w-full text-center my-10 uppercase'> Create Event </h1>
+        <h1 className='text-5xl w-full text-center my-10 uppercase'> Modify Event </h1>
 
-        {/* Form to create an event */}
+        {/* List of events */}
 
       </div>
     </div>

@@ -16,9 +16,9 @@ export default function Page() {
       <h1 className='text-8xl w-full text-center my-28 uppercase'> Admin Dashboard </h1>
       <div className="flex w-full gap-4">
         <button onClick={() => {router.replace('/admin/create-event')}} className='bg-secondary-900 p-2 rounded grow' > Create event </button>
-        <button onClick={() => {router.replace('/admin/')}} className='bg-secondary-900 p-2 rounded grow' > Modify event </button>
-        <button onClick={() => {router.replace('/admin/')}} className='bg-secondary-900 p-2 rounded grow' > Manage places </button>
-        <button onClick={() => {router.replace('/admin/')}} className='bg-secondary-900 p-2 rounded grow' > Manage users </button>
+        <button onClick={() => {router.replace('/admin/modify-event')}} className='bg-secondary-900 p-2 rounded grow' > Modify event </button>
+        <button onClick={() => {router.replace('/admin/manage-places')}} className='bg-secondary-900 p-2 rounded grow' > Manage places </button>
+        <button onClick={() => {router.replace('/admin/manage-users')}} className='bg-secondary-900 p-2 rounded grow' > Manage users </button>
       </div>
     </main>
   )
