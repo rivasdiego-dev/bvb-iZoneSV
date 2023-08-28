@@ -1,8 +1,12 @@
+"use client"
+
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import MenuItem from './Sidebar/MenuItem'
+import { collection, getDocs } from 'firebase/firestore'
+import { firebaseDB } from '@/firebase/app'
 
 interface SidebarProps {
     open: boolean,
@@ -12,10 +16,45 @@ const volleyMan = '/volleyManWhite.png'
 
 export default function Sidebar({ open, setOpen }: SidebarProps) {
     const router = useRouter()
+    const userID = localStorage.getItem("id");
+    let userIsLogged = false;
+    const [userAuth, setUserAuth] = useState(false);
+
+    async function verifyUser() {
+        try {
+            const querySnapshot = await getDocs(collection(firebaseDB, "users"));
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data();
+                if (userData.id === userID) {
+                    if (userData.roles.includes("admin"))
+                        setUserAuth(true);
+                    console.log("User found!");
+                }
+            });
+        } catch (error) {
+            console.error("Couldn't verify user", error);
+        }
+    }
+
+    if (userID !== null && userID !== undefined) userIsLogged = true;
+
+    let message = userIsLogged ? "Log Out" : "Log In";
 
     function handleNavigation(): void {
         setOpen(!open)
     }
+
+    const actionButtonHandler = (userLogged: boolean) => {
+        userLogged ? router.replace('/') : router.replace('/login')
+        localStorage.removeItem('id')
+        setUserAuth(false)
+        setOpen(!open);
+    }
+
+    useEffect(() => {
+        verifyUser()
+    }, [userIsLogged])
+
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -68,12 +107,13 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                                         <div className="flex flex-col justify-between relative mt-6 flex-1 p-4 sm:px-6">
                                             <div onClick={handleNavigation}>
                                                 <MenuItem item='Home' navigateTo='/' />
-                                                <MenuItem item='Latest Event' navigateTo='/events' />
+                                                <MenuItem item='Latest Event' navigateTo='/events/latest' />
                                                 <MenuItem item='All events' navigateTo='/events' />
+                                                {userAuth && <MenuItem item='Admin' navigateTo='/admin' />}
                                             </div>
 
-                                            <button onClick={() => {router.replace('/login'); setOpen(!open);}} className="p-2 place-self-end text-lg font-bold w-fit">
-                                                Log In
+                                            <button onClick={() => { actionButtonHandler(userIsLogged) }} className="p-2 place-self-end text-lg font-bold w-fit">
+                                                {message}
                                             </button>
                                         </div>
                                     </div>

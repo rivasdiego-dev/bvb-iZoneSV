@@ -18,13 +18,8 @@ const adminRoute = RegExp("^/admin$");
 export function middleware(request: NextRequest) {
   // If the user navigates to any url starting with ".../admin"
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    // AUTH USER ROLE HERE
-    console.log("Si me corri");
-
-    // If is exactly and only 'admin'
     if (request.nextUrl.pathname.match(adminRoute))
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-    // Redirect authorized user
   }
 }
 
@@ -33,5 +28,5 @@ export const config = {
   // Any route that starts with /admin.
   // : =>  Includes named parameters
   // * => Modifier on named parameters  ('*' is zero or more, '?' is zero or one and '+' one or more)
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin"],
 };

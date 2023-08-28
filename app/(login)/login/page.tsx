@@ -64,6 +64,7 @@ export default function Page({ }: Props) {
                 // If user doesn't exist, create default user
                 await CreateDefaultUser(user);
 
+            localStorage.setItem("id", user.id);
             router.replace("/");
 
         } catch (error) {
@@ -120,6 +121,7 @@ export default function Page({ }: Props) {
                         </label>
                         <input
                             onChange={handleInputChange}
+                            autoComplete="off"
                             type="email"
                             name="email"
                             id="email"
