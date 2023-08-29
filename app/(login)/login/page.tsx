@@ -1,7 +1,8 @@
 'use client'
 
 import { firebaseAuth } from "@/firebase/app";
-import { CreateDefaultUser, User, UserExists } from "@/firebase/services/userAuth";
+import { User } from "@/firebase/interfaces";
+import { CreateDefaultUser, UserExists } from "@/firebase/services/userAuth";
 import {
     GoogleAuthProvider,
     signInWithEmailAndPassword,
@@ -98,9 +99,9 @@ export default function Page({ }: Props) {
             {/* Form */}
             <div className="h-full flex flex-col sm:w-1/3 sm:mx-auto">
                 {/* Google Sign In */}
-                <button onClick={handleGoogleLogin} className={"flex items-center mx-auto mb-6 py-2 rounded text-lg tracking-tight font-medium sm:w-max text-neutral-600 bg-white " + roboto.className} >
-                    <FaGoogle className="text-xl w-1/2 sm:w-fit sm:px-5 text-secondary" />
-                    <p className="w-full mr-6"> Sign in with Google </p>
+                <button onClick={handleGoogleLogin} className={"flex items-center mx-auto mb-6 py-2 px-4 gap-4 rounded text-lg tracking-tight whitespace-nowrap font-medium sm:w-max text-neutral-600 bg-white " + roboto.className} >
+                    <FaGoogle className="text-xl w-1/2 sm:w-fit text-secondary" />
+                    <p className=""> Sign in with Google </p>
                 </button>
 
                 {/* Divider */}
