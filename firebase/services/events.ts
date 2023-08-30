@@ -7,8 +7,8 @@ export const defaultVolleyEvent: VolleyEvent = {
   description: "",
   placeID: "",
   categories: [],
-  startDate: new Date(Date.now()),
-  endDate: new Date(Date.now()),
+  startDate: '',
+  endDate: '',
 };
 
 export const defaultPlace: Place = {
@@ -29,7 +29,24 @@ export async function GetAllPlaces(): Promise<Place[] | undefined> {
   }
 }
 
+export async function GetAllEvents(): Promise<VolleyEvent[] | undefined> {
+  try {
+    const querySnapshot = await getDocs(collection(firebaseDB, "events"));
+    const allEvents: VolleyEvent[] = [];
+    querySnapshot.forEach((doc) => {
+      const eventData = doc.data() as VolleyEvent;
+      allEvents.push(eventData);
+    });
+    return allEvents;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  }
+}
+
+
+
 export async function CreateNewEvent(volleyEvent: VolleyEvent) {
+  volleyEvent.shown = false;
   try {
     await addDoc(collection(firebaseDB, "events"), volleyEvent);
   } catch (error) {

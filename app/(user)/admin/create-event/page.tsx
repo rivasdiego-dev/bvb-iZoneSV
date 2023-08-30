@@ -3,7 +3,7 @@
 import { useEffect, useState, } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaArrowLeftLong, FaX } from 'react-icons/fa6'
-import { CreateNewEvent, GetAllPlaces, defaultPlace, defaultVolleyEvent } from '@/firebase/services/forms';
+import { CreateNewEvent, GetAllPlaces, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
 import { Place, VolleyEvent } from '@/firebase/interfaces';
 
 export default function Page() {
@@ -25,6 +25,7 @@ export default function Page() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setEventInfo((prevInfo) => ({ ...prevInfo, shown: false }))
     CreateNewEvent(eventInfo)
     router.replace('/admin')
   };
@@ -52,7 +53,6 @@ export default function Page() {
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    console.log(eventInfo);
     setEventInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
 
@@ -67,7 +67,6 @@ export default function Page() {
   }, [])
 
   useEffect(() => {
-    console.log(eventInfo);
     setEventInfo((prevInfo) => ({ ...prevInfo, categories: categoryList }));
   }, [categoryList]);
 
@@ -79,7 +78,7 @@ export default function Page() {
         <button onClick={handleGoBack} className="text-3xl absolute top-2 left-3"> <FaArrowLeftLong /> </button>
         <h1 className='text-5xl w-full text-center my-10 uppercase'> Create Event </h1>
 
-        <form className='w-1/2 mx-auto' onSubmit={handleFormSubmit}>
+        <form className='w-3/4 lg:w-1/2 mx-auto' onSubmit={handleFormSubmit}>
 
           <div className="mb-6 grid grid-cols-2 gap-6 items-center">
 
@@ -121,7 +120,7 @@ export default function Page() {
 
             <div>
               <label htmlFor="event-categories" className="block text-lg font-medium" > Event categories </label>
-              <div className='flex gap-2'>
+              <div className='flex flex-col lg:flex-row gap-2 '>
                 <input
                   type="text"
                   value={category}
@@ -134,7 +133,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className='h-full row-span-2'>
+            <div className='h-full xl:row-span-2 row-span-1'>
               <label htmlFor="event-categories" className="block text-lg font-medium" > Current categories </label>
               <div className="flex flex-wrap gap-6 justify-around">
                 {
