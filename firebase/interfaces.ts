@@ -15,11 +15,12 @@ export interface Place {
 
 export interface VolleyEvent {
     id?: string,
+    shown?: boolean,
     name: string,
     description: string,
     placeID: string,
     categories: string[],
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
 }
 
