@@ -1,4 +1,11 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { firebaseDB } from "../app";
 import { Place, VolleyEvent } from "../interfaces";
 
@@ -32,16 +39,15 @@ export async function GetAllPlaces(): Promise<Place[] | undefined> {
 
 export async function GetPlaceByID(ID: string) {
   try {
-    const placesRef = collection(firebaseDB, "places");
-    const q = query(placesRef, where("id", "==", ID));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(
+      query(collection(firebaseDB, "places"), where("id", "==", ID))
+    );
 
     if (querySnapshot.empty) return null;
 
     const doc = querySnapshot.docs[0];
     const placeData = doc.data() as Place;
     return placeData;
-
   } catch (error) {
     console.error("Error fetching place by ID:", error);
   }
@@ -63,8 +69,11 @@ export async function GetAllEvents(): Promise<VolleyEvent[] | undefined> {
 
 export async function CreateNewEvent(volleyEvent: VolleyEvent) {
   volleyEvent.shown = false;
+  const newEventRef = doc(collection(firebaseDB, "events"));
+  volleyEvent.id = newEventRef.id;
+
   try {
-    await addDoc(collection(firebaseDB, "events"), volleyEvent);
+    await setDoc(newEventRef, volleyEvent);
   } catch (error) {
     console.error(error);
   }
