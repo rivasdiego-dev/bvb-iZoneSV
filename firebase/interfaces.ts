@@ -9,18 +9,17 @@ export interface User {
 
 export interface Place {
   id?: string;
-  name: string | null;
+  imageURL: string;
+  name: string;
 }
-
 
 export interface VolleyEvent {
-    id?: string,
-    shown?: boolean,
-    name: string,
-    description: string,
-    placeID: string,
-    categories: string[],
-    startDate: string,
-    endDate: string,
+  id?: string;
+  shown?: boolean;
+  name: string;
+  description: string;
+  placeID: string;
+  categories: string[];
+  startDate: string;
+  endDate: string;
 }
-
