@@ -20,5 +20,5 @@ export default function useFetchEvents() {
       fetchEvents();
     }, []);
   
-    return { volleyEvents };
+    return volleyEvents;
   }
