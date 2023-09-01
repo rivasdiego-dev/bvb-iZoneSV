@@ -1,29 +1,18 @@
 'use client'
 
-import { VolleyEvent } from '@/firebase/interfaces';
-import { GetAllEvents } from '@/firebase/services/events';
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react';
-import { FaArrowLeftLong } from 'react-icons/fa6'
+import useFetchEvents from '@/hooks/useFetchEvents';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function Page() {
   const router = useRouter();
-  const [volleyEvents, setVolleyEvents] = useState<VolleyEvent[]>([])
+  const handleGoBack = () => { router.replace('/admin') };
 
-  async function fetchEvents() {
-    const fetchedEvents = await GetAllEvents()
-    if (fetchedEvents)
-    setVolleyEvents(() => [...fetchedEvents])
-  }
+  const volleyEvents = useFetchEvents();
+  useEffect(()=>{}, [volleyEvents]);
 
-  const handleGoBack = () => {
-    router.replace('/admin')
-  }
 
-  useEffect(() => {
-    fetchEvents()
-    console.log(volleyEvents);
-  }, [])
 
   return (
     <div className="min-h-full">

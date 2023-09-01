@@ -28,7 +28,6 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                 if (userData.id === userID) {
                     if (userData.roles.includes("admin"))
                         setUserAuth(true);
-                    console.log("User found!");
                 }
             });
         } catch (error) {

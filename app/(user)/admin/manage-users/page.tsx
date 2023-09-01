@@ -5,10 +5,7 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 
 export default function Page() {
   const router = useRouter();
-
-  const handleGoBack = () => {
-    router.replace('/admin')
-  }
+  const handleGoBack = () => { router.replace('/admin') };
 
   return (
     <div className="min-h-full">
