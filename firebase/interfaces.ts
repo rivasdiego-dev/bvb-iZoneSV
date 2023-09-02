@@ -23,3 +23,19 @@ export interface VolleyEvent {
   startDate: string;
   endDate: string;
 }
+
+export interface Team {
+  id: string;
+  eventId: string;
+  masc: boolean;
+  player1: string;
+  player2: string;
+  teamName: string;
+  categories: string[];
+  gamesWon: number;
+  gamesLose: number;
+  gamePoints: number;
+  pointsFavor: number;
+  pointsAgainst: number;
+  average: number;
+}
