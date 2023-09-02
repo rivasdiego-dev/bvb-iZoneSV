@@ -53,6 +53,22 @@ export async function GetPlaceByID(ID: string) {
   }
 }
 
+export async function GetEventByName(name: string) {
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(firebaseDB, "events"), where("name", "==", name))
+    );
+
+    if (querySnapshot.empty) return null;
+
+    const doc = querySnapshot.docs[0];
+    const volleyEventData = doc.data() as VolleyEvent;
+    return volleyEventData;
+  } catch (error) {
+    console.error("Error fetching event by name:", error);
+  }
+}
+
 export async function GetAllEvents(): Promise<VolleyEvent[] | undefined> {
   try {
     const querySnapshot = await getDocs(collection(firebaseDB, "events"));
