@@ -26,6 +26,7 @@ export default function Page() {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     UpdateEvent(selectedEvent)
+    setSelectedEvent(defaultVolleyEvent);
   };
 
   const handleAddCategory = (e: React.FormEvent) => {
@@ -76,18 +77,18 @@ export default function Page() {
 
   return (
     <div className="min-h-full">
-      <div className="relative border border-black">
+      <div className="relative">
         <button onClick={handleGoBack} className="text-3xl absolute top-2 left-3"> <FaArrowLeftLong /> </button>
-        <h1 className='text-5xl w-full text-center my-10 uppercase'> Modify Event </h1>
-        <button onClick={() => { console.log(volleyEvents); }}> See Events </button>
+        <h1 className='text-5xl w-full text-center pb-10 uppercase'> Modify Event </h1>
       </div>
-      <div className='flex w-full border'>
-        <section className='border w-full text-xl border-red-600'>
+      <div className='flex w-full px-4'>
+        <section className='w-full text-xl'>
+          List of All Events
           {volleyEvents.map((e, i) => (
-            <div onClick={() => { handleSelectEvent(e) }} className='cursor-pointer my-2 bg-pink-900' key={i}> {e.name} </div>
+            <div onClick={() => { handleSelectEvent(e) }} className='cursor-pointer my-2 bg-secondary rounded py-2 px-4 hover:translate-x-2 transition-all' key={i}> {e.name} </div>
           ))}
         </section>
-        <section className='border w-full border-blue-600'>
+        <section className='w-full'>
           <form className='w-11/12 mx-auto' onSubmit={handleFormSubmit}>
             <div className="mb-6 grid grid-cols-1 gap-6 items-center">
               <div className=''>
