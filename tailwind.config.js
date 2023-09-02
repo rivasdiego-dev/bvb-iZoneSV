@@ -10,7 +10,7 @@ export const theme = {
   extend: {
     textShadow: {
       sm: '1px 1px 1px rgb(0 0 0 / 100%)',
-      DEFAULT: '0 2px 4px rgb(0 0 0 / 100%)',
+      DEFAULT: '2px 2px 4px rgb(0 0 0 / 60%)',
       lg: '0 8px 16px rgb(0 0 0 / 100%)',
     },
     colors: {
