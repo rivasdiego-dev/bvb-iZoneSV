@@ -1,15 +1,19 @@
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { firebaseDB } from "../app";
 import { Place, VolleyEvent } from "../interfaces";
 
 export const defaultVolleyEvent: VolleyEvent = {
+  id: "",
+  shown: false,
   name: "",
   description: "",
   placeID: "",
@@ -69,6 +73,18 @@ export async function GetEventByName(name: string) {
   }
 }
 
+export async function GetEventByID(ID: string) {
+  try {
+    const docRef = doc(firebaseDB, "events", ID);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) return null;
+    const volleyEventData = docSnap.data() as VolleyEvent;
+    return volleyEventData;
+  } catch (error) {
+    console.error("Error fetching event by ID:", error);
+  }
+}
+
 export async function GetAllEvents(): Promise<VolleyEvent[] | undefined> {
   try {
     const querySnapshot = await getDocs(collection(firebaseDB, "events"));
@@ -92,5 +108,14 @@ export async function CreateNewEvent(volleyEvent: VolleyEvent) {
     await setDoc(newEventRef, volleyEvent);
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function UpdateEvent(volleyEvent: VolleyEvent) {
+  try {
+    const docRef = doc(firebaseDB, "events", volleyEvent.id);
+    await setDoc(docRef, volleyEvent);
+  } catch (error) {
+    console.log("Error updating event:", error);
   }
 }
