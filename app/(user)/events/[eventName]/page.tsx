@@ -4,6 +4,7 @@ import Contacts from '@/components/Contacts';
 import { Place, VolleyEvent } from '@/firebase/interfaces';
 import { GetEventByName, GetPlaceByID } from '@/firebase/services/events';
 import { Montserrat, Roboto } from 'next/font/google';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import { FaCalendarDays, FaMapLocationDot } from 'react-icons/fa6';
 
@@ -15,7 +16,8 @@ export default function Page({ params }: { params: { eventName: string } }) {
 
 
     const [eventPlace, setEventPlace] = useState<Place>();
-    const [volleyEvent, setVolleyEvent] = useState<VolleyEvent>();
+    const [volleyEvent, setVolleyEvent] = useState<VolleyEvent | null>();
+    const router = useRouter();
 
     const formatDate = (inputDate: string) => {
         const date = new Date(inputDate);
@@ -24,6 +26,8 @@ export default function Page({ params }: { params: { eventName: string } }) {
         const day = date.getDate();
         return `${capitalizedMonth} ${day}`;
     };
+
+    const redirectToCategory = (category: string) => { router.push(`/events/${params.eventName}/${category}`) }
 
     useEffect(() => {
         const fetchPlace = async () => {
@@ -71,7 +75,7 @@ export default function Page({ params }: { params: { eventName: string } }) {
                 {
                     volleyEvent?.categories.map((c, i) => (
                         <div className='' key={i}>
-                            <h5 className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
+                            <h5 onClick={() => {redirectToCategory(c)}} className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
                                 {c}
                             </h5>
                         </div>

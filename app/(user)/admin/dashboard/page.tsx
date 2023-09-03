@@ -20,6 +20,7 @@ export default function Page() {
         <button onClick={() => {router.replace('/admin/manage-places')}} className='bg-secondary-900 p-2 rounded transition-all hover:scale-110 hover:bg-secondary' > Manage places </button>
         <button onClick={() => {router.replace('/admin/manage-users')}} className='bg-secondary-900 p-2 rounded transition-all hover:scale-110 hover:bg-secondary' > Manage users </button>
         <button onClick={() => {router.replace('/admin/manage-teams')}} className='bg-secondary-900 p-2 rounded transition-all hover:scale-110 hover:bg-secondary' > Manage teams </button>
+        <button onClick={() => {router.replace('/admin/manage-groups')}} className='bg-secondary-900 p-2 rounded transition-all hover:scale-110 hover:bg-secondary' > Manage groups </button>
       </div>
     </main>
   )

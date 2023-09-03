@@ -39,3 +39,12 @@ export interface Team {
   pointsAgainst: number;
   average: number;
 }
+
+export interface Group {
+  id: string,
+  name: string,
+  eventId: string,
+  fromCategory:string,
+  masc: boolean,
+  teamsInGroup: string[]
+}
