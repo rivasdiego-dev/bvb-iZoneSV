@@ -1,6 +1,13 @@
-import { Team } from "../interfaces";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { firebaseDB } from "../app";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { Team } from "../interfaces";
 
 export const defaultTeam: Team = {
   id: "",
@@ -27,5 +34,45 @@ export async function CreateNewTeam(team: Team, eventId: string) {
     await setDoc(newTeamRef, team);
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function GetAllTeamsFromEvent(eventID: string) {
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(firebaseDB, "teams"), where("eventId", "==", eventID))
+    );
+
+    if (querySnapshot.empty) return null;
+
+    const teams: Team[] = [];
+    querySnapshot.forEach((doc) => {
+      const teamData = doc.data() as Team;
+      teams.push(teamData);
+    });
+    
+    return teams;
+  } catch (error) {
+    console.error("Error fetching teams of an event:", error);
+  }
+}
+
+export async function GetTeamsFromEventCategory(eventID: string | undefined, category: string) {
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(firebaseDB, "teams"), where("eventId", "==", eventID), where("categories", "array-contains", category))
+    );
+
+    if (querySnapshot.empty) return null;
+
+    const teams: Team[] = [];
+    querySnapshot.forEach((doc) => {
+      const teamData = doc.data() as Team;
+      teams.push(teamData);
+    });
+
+    return teams;
+  } catch (error) {
+    console.error("Error fetching teams of a category:", error);
   }
 }
