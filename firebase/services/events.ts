@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -81,6 +82,13 @@ export async function GetEventByID(ID: string) {
     return volleyEventData;
   } catch (error) {
     console.error("Error fetching event by ID:", error);
+  }
+}
+export async function DeleteEvent(ID: string) {
+  try {
+    const docRef = doc(firebaseDB, "events", ID);
+    await deleteDoc(docRef);
+  } catch (error) { console.log(error);
   }
 }
 

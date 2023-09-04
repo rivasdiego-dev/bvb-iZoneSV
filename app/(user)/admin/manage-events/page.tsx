@@ -1,7 +1,7 @@
 'use client'
 
 import { Place, VolleyEvent } from '@/firebase/interfaces';
-import { GetAllPlaces, UpdateEvent, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
+import { DeleteEvent, GetAllPlaces, UpdateEvent, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
 import useFetchEvents from '@/hooks/useFetchEvents';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -60,11 +60,14 @@ export default function Page() {
     setSelectedEvent((prevInfo) => selectedEvent ? { ...selectedEvent, [name]: value } : { ...prevInfo, [name]: value });
   };
 
+  const handleDeleteEvent = () => {
+    DeleteEvent(selectedEvent.id);
+    router.replace('/admin');
+  }
+
   useEffect(() => {
     setSelectedEvent((prevInfo) => ({ ...prevInfo, categories: categoryList }));
   }, [categoryList]);
-
-  useEffect(() => { }, [volleyEvents]);
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -178,7 +181,7 @@ export default function Page() {
                   <input
                     name='startDate'
                     onChange={handleInputChange}
-                    type="datetime-local"
+                    type="date"
 
                     id="event-start-date"
                     className={inputDefaultForm}
@@ -190,7 +193,7 @@ export default function Page() {
                   <input
                     name='endDate'
                     onChange={handleInputChange}
-                    type="datetime-local"
+                    type="date"
 
                     id="event-end-date"
                     className={inputDefaultForm}
@@ -201,6 +204,7 @@ export default function Page() {
             </div>
             <div className='flex'>
               <button type='submit' className='bg-secondary text-3xl px-12 py-3 rounded mx-auto text-shadow font-bold whitespace-nowrap focus:outline-none'> Update Event </button>
+              <button type='button' onClick={handleDeleteEvent} className='bg-red-500 text-3xl px-12 py-3 rounded mx-auto text-shadow font-bold whitespace-nowrap focus:outline-none'> Delete Event </button>
             </div>
           </form>
         </section>

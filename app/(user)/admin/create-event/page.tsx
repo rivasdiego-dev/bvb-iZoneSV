@@ -160,18 +160,18 @@ export default function Page() {
                 <input
                   name='startDate'
                   onChange={handleInputChange}
-                  type="datetime-local"
+                  type="date"
                   placeholder="When is the event starting..."
                   id="event-start-date"
                   className={inputDefaultForm}
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="event-start-date" className="block text-lg font-medium" > Event Start Date </label>
+                <label htmlFor="event-start-date" className="block text-lg font-medium" > Event End Date </label>
                 <input
                   name='endDate'
                   onChange={handleInputChange}
-                  type="datetime-local"
+                  type="date"
                   placeholder="When you plan to finish it..."
                   id="event-start-date"
                   className={inputDefaultForm}
