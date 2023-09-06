@@ -2,6 +2,7 @@
 
 import { Place, VolleyEvent } from '@/firebase/interfaces';
 import { DeleteEvent, GetAllPlaces, UpdateEvent, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
+import { Category } from '@/firebase/types';
 import useFetchEvents from '@/hooks/useFetchEvents';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,8 +13,8 @@ const inputDefaultForm = "text-base tracking-wide rounded block w-full p-2.5 bg-
 export default function Page() {
   const router = useRouter();
   const handleGoBack = () => { router.replace('/admin') };
-  const [categoryList, setCategoryList] = useState<string[]>([])
-  const [category, setCategory] = useState('')
+  const [categoryList, setCategoryList] = useState<Category[]>([])
+  const [category, setCategory] = useState<Category>({ name: '', teams: [] }); // Initialize category as an empty object
   const [places, setPlaces] = useState<Place[]>([])
   const [selectedEvent, setSelectedEvent] = useState<VolleyEvent>(defaultVolleyEvent);
   const { volleyEvents } = useFetchEvents();
@@ -31,19 +32,22 @@ export default function Page() {
 
   const handleAddCategory = (e: React.FormEvent) => {
     e.preventDefault();
-    setCategoryList((prevInfo) => [...prevInfo, category])
-    setCategory('')
-  }
+    if (category) {
+      setCategoryList((prevCategoryList) => [...prevCategoryList, category]);
+      setCategory({ name: '', teams: [] }); // Reset category after adding
+    }
+  };
 
   const handleRemoveCategory = (categoryToRemove: string) => {
     setCategoryList((prevInfo) =>
-      prevInfo.filter((category) => category !== categoryToRemove)
+      prevInfo.filter((category) => category.name !== categoryToRemove) // Filter by category name
     );
   };
 
-  const handleCategoryInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
-    setCategory(e.target.value)
-  }
+  const handleCategoryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    setCategory((prevCategory) => ({ ...prevCategory, name: newName }));
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -80,17 +84,27 @@ export default function Page() {
 
   return (
     <div className="min-h-full">
+
       <div className="relative">
         <button onClick={handleGoBack} className="text-3xl absolute top-2 left-3"> <FaArrowLeftLong /> </button>
         <h1 className='text-5xl w-full text-center pb-10 uppercase'> Modify Event </h1>
       </div>
+
       <div className='flex w-full px-4'>
-        <section className='w-full text-xl'>
-          List of All Events
-          {volleyEvents.map((e, i) => (
-            <div onClick={() => { handleSelectEvent(e) }} className='cursor-pointer my-2 bg-secondary rounded py-2 px-4 hover:translate-x-2 transition-all' key={i}> {e.name} </div>
-          ))}
+        <section className='w-full text-xl flex-col'>
+          <p>List of All Events</p>
+          <ul>
+            {volleyEvents.map((e, i) => (
+              <li onClick={() => { handleSelectEvent(e) }} className='cursor-pointer my-2 bg-secondary rounded py-2 px-4 hover:translate-x-2 transition-all' key={i}> {e.name} </li>
+            ))}
+          </ul>
+          <div className='flex w-full gap-3 flex-wrap'>
+            <p className='basis-full'> Actions </p> 
+            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-teams`)}} className='px-4 py-2 bg-gray-800 rounded'> Equipos en el evento </button>
+            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-groups`)}} className='px-4 py-2 bg-gray-800 rounded'> Categorias en el evento </button>
+          </div>
         </section>
+
         <section className='w-full'>
           <form className='w-11/12 mx-auto' onSubmit={handleFormSubmit}>
             <div className="mb-6 grid grid-cols-1 gap-6 items-center">
@@ -142,17 +156,25 @@ export default function Page() {
                 </select>
               </div>
               <div>
-                <label htmlFor="event-categories" className="block text-lg font-medium" > Event categories </label>
-                <div className='flex flex-col lg:flex-row gap-2 '>
-                  <input
-                    type="text"
-                    value={category}
-
-                    id="event-categories"
-                    onChange={handleCategoryInputChange}
-                    className={inputDefaultForm}
-                  />
-                  <button onClick={handleAddCategory} className='bg-secondary-950 rounded px-3 whitespace-nowrap focus:outline-none'> Add Category </button>
+                <div>
+                  <label htmlFor="event-categories" className="block text-lg font-medium">
+                    Event categories
+                  </label>
+                  <div className="flex flex-col lg:flex-row gap-2 ">
+                    <input
+                      type="text"
+                      value={category?.name}
+                      id="event-categories"
+                      onChange={handleCategoryInputChange}
+                      className={inputDefaultForm}
+                    />
+                    <button
+                      onClick={handleAddCategory}
+                      className="bg-secondary-950 rounded px-3 whitespace-nowrap focus:outline-none"
+                    >
+                      Add Category
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className='h-full xl:row-span-2 row-span-1'>
@@ -160,15 +182,15 @@ export default function Page() {
                 <div className="flex flex-wrap gap-6 justify-around">
                   {
                     categoryList.map(category => (
-                      <div className='relative' key={category}>
+                      <div className='relative' key={category.name}>
                         <div
-                          onClick={() => handleRemoveCategory(category)}
+                          onClick={() => handleRemoveCategory(category.name)}
                           className="absolute -top-1 -right-2 text-red-500 cursor-pointer"
                         >
                           <FaX />
                         </div>
                         <p className='text-base tracking-wide rounded block p-2.5 bg-gray-700 focus:outline-none'>
-                          {category}
+                          {category.name}
                         </p>
                       </div>
                     ))
@@ -208,6 +230,7 @@ export default function Page() {
             </div>
           </form>
         </section>
+
       </div>
     </div>
   )

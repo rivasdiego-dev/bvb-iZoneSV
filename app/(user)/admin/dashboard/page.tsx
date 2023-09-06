@@ -18,11 +18,9 @@ export default function Page() {
       <h1 className='text-8xl w-full text-center my-28 uppercase'> Admin Dashboard </h1>
       <div className="flex w-full gap-4 justify-center">
         <button onClick={() => {router.replace('/admin/create-event')}} className={btnStyle} > Create event </button>
-        <button onClick={() => {router.replace('/admin/manage-events')}} className={btnStyle} > Manage events </button>
+        <button onClick={() => {router.replace('/admin/manage-event')}} className={btnStyle} > Manage events </button>
         <button onClick={() => {router.replace('/admin/manage-places')}} className={btnStyle} > Manage places </button>
         <button onClick={() => {router.replace('/admin/manage-users')}} className={btnStyle} > Manage users </button>
-        <button onClick={() => {router.replace('/admin/manage-teams/add-teams')}} className={btnStyle} > Add teams to an event </button>
-        <button onClick={() => {router.replace('/admin/manage-groups')}} className={btnStyle} > Manage groups </button>
       </div>
     </main>
   )
