@@ -5,11 +5,12 @@ import { useRouter } from 'next/navigation'
 import { FaArrowLeftLong, FaX } from 'react-icons/fa6'
 import { CreateNewEvent, GetAllPlaces, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
 import { Place, VolleyEvent } from '@/firebase/interfaces';
+import { Category } from '@/firebase/types';
 
 export default function Page() {
   const router = useRouter();
-  const [categoryList, setCategoryList] = useState<string[]>([])
-  const [category, setCategory] = useState('')
+  const [categoryList, setCategoryList] = useState<Category[]>([])
+  const [category, setCategory] = useState<Category>({name: '', teams: []})
   const [places, setPlaces] = useState<Place[]>([])
   const [eventInfo, setEventInfo] = useState<VolleyEvent>(defaultVolleyEvent)
 
@@ -33,17 +34,17 @@ export default function Page() {
   const handleAddCategory = (e: React.FormEvent) => {
     e.preventDefault();
     setCategoryList((prevInfo) => [...prevInfo, category])
-    setCategory('')
+    setCategory({name: '', teams: []})
   }
 
   const handleRemoveCategory = (categoryToRemove: string) => {
     setCategoryList((prevInfo) =>
-      prevInfo.filter((category) => category !== categoryToRemove)
+      prevInfo.filter((category) => category.name !== categoryToRemove)
     );
   };
 
   const handleCategoryInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
-    setCategory(e.target.value)
+    setCategory((prevInfo) => ({...prevInfo, name: e.target.value}))
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
@@ -123,7 +124,7 @@ export default function Page() {
               <div className='flex flex-col lg:flex-row gap-2 '>
                 <input
                   type="text"
-                  value={category}
+                  value={category.name}
                   placeholder="Add categories to your event..."
                   id="event-categories"
                   onChange={handleCategoryInputChange}
@@ -138,15 +139,15 @@ export default function Page() {
               <div className="flex flex-wrap gap-6 justify-around">
                 {
                   categoryList.map(category => (
-                    <div className='relative' key={category}>
+                    <div className='relative' key={category.name}>
                       <div
-                        onClick={() => handleRemoveCategory(category)}
+                        onClick={() => handleRemoveCategory(category.name)}
                         className="absolute -top-1 -right-2 text-red-500 cursor-pointer"
                       >
                         <FaX />
                       </div>
                       <p className='text-base tracking-wide rounded block p-2.5 bg-gray-700 placeholder-gray-400 focus:outline-none'>
-                        {category}
+                        {category.name}
                       </p>
                     </div>
                   ))

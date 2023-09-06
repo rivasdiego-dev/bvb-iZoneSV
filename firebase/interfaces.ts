@@ -1,4 +1,4 @@
-import { Role } from "./types";
+import { Category, Role } from "./types";
 
 export interface User {
   id: string;
@@ -19,7 +19,7 @@ export interface VolleyEvent {
   name: string;
   description: string;
   placeID: string;
-  categories: string[];
+  categories: Category[] | null;
   startDate: string;
   endDate: string;
 }
