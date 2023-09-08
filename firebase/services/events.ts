@@ -116,6 +116,8 @@ export async function CreateNewEvent(volleyEvent: VolleyEvent) {
   } catch (error) {
     console.error(error);
   }
+
+  return newEventRef.id
 }
 
 export async function UpdateEvent(volleyEvent: VolleyEvent) {
