@@ -34,7 +34,7 @@ export default function Page({ params }: { params: { eventName: string } }) {
             try {
                 const volleyEvent = await GetEventByName(decodeURIComponent(params.eventName));
                 setVolleyEvent(volleyEvent);
-                const place = await GetPlaceByID(volleyEvent.placeID) as Place;
+                const place = await GetPlaceByID(volleyEvent?.placeID) as Place;
                 setEventPlace(place);
             } catch (error) {
                 console.error("Error fetching place:", error);
@@ -75,8 +75,8 @@ export default function Page({ params }: { params: { eventName: string } }) {
                 {
                     volleyEvent?.categories.map((c, i) => (
                         <div className='' key={i}>
-                            <h5 onClick={() => {redirectToCategory(c)}} className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
-                                {c}
+                            <h5 onClick={() => {redirectToCategory(c.name)}} className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
+                                {c.name}
                             </h5>
                         </div>
                     ))

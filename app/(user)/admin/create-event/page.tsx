@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation'
 import { FaArrowLeftLong, FaX } from 'react-icons/fa6'
 import { CreateNewEvent, GetAllPlaces, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
 import { Place, VolleyEvent } from '@/firebase/interfaces';
-import { Category } from '@/firebase/types';
+import { Category, defaultCategory } from '@/firebase/types';
 
 export default function Page() {
   const router = useRouter();
   const [categoryList, setCategoryList] = useState<Category[]>([])
-  const [category, setCategory] = useState<Category>({name: '', teams: []})
+  const [category, setCategory] = useState<Category>(defaultCategory)
   const [places, setPlaces] = useState<Place[]>([])
   const [eventInfo, setEventInfo] = useState<VolleyEvent>(defaultVolleyEvent)
 
@@ -34,7 +34,7 @@ export default function Page() {
   const handleAddCategory = (e: React.FormEvent) => {
     e.preventDefault();
     setCategoryList((prevInfo) => [...prevInfo, category])
-    setCategory({name: '', teams: []})
+    setCategory(defaultCategory)
   }
 
   const handleRemoveCategory = (categoryToRemove: string) => {

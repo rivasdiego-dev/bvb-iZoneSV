@@ -2,7 +2,7 @@
 
 import { Place, VolleyEvent } from '@/firebase/interfaces';
 import { DeleteEvent, GetAllPlaces, UpdateEvent, defaultPlace, defaultVolleyEvent } from '@/firebase/services/events';
-import { Category } from '@/firebase/types';
+import { Category, defaultCategory } from '@/firebase/types';
 import useFetchEvents from '@/hooks/useFetchEvents';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export default function Page() {
   const router = useRouter();
   const handleGoBack = () => { router.replace('/admin') };
   const [categoryList, setCategoryList] = useState<Category[]>([])
-  const [category, setCategory] = useState<Category>({ name: '', teams: [] }); // Initialize category as an empty object
+  const [category, setCategory] = useState<Category>(defaultCategory); // Initialize category as an empty object
   const [places, setPlaces] = useState<Place[]>([])
   const [selectedEvent, setSelectedEvent] = useState<VolleyEvent>(defaultVolleyEvent);
   const { volleyEvents } = useFetchEvents();
@@ -34,7 +34,7 @@ export default function Page() {
     e.preventDefault();
     if (category) {
       setCategoryList((prevCategoryList) => [...prevCategoryList, category]);
-      setCategory({ name: '', teams: [] }); // Reset category after adding
+      setCategory(defaultCategory); // Reset category after adding
     }
   };
 
@@ -100,8 +100,8 @@ export default function Page() {
           </ul>
           <div className='flex w-full gap-3 flex-wrap'>
             <p className='basis-full'> Actions </p> 
-            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-teams`)}} className='px-4 py-2 bg-gray-800 rounded'> Equipos en el evento </button>
-            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-groups`)}} className='px-4 py-2 bg-gray-800 rounded'> Categorias en el evento </button>
+            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-teams`)}} className='px-4 py-2 bg-gray-800 rounded'> Añadir equipos al evento </button>
+            <button onClick={() => {router.push(`/admin/manage-event/${selectedEvent.id}/manage-groups`)}} className='px-4 py-2 bg-gray-800 rounded'> Grupos de categorias </button>
           </div>
         </section>
 

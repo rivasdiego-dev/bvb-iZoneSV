@@ -5,6 +5,7 @@ import { GetPlaceByID } from '@/firebase/services/events';
 import { findClosestEvent } from '@/funcs/arrayFuncs';
 import useFetchEvents from '@/hooks/useFetchEvents';
 import { Montserrat, Roboto } from 'next/font/google';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaCalendarDays, FaMapLocationDot } from 'react-icons/fa6';
 
@@ -14,7 +15,9 @@ const roboto = Roboto({ subsets: ['latin-ext'], weight: ['100', '300', '400', '5
 
 export default function Page({ }: Props) {
     const { volleyEvents } = useFetchEvents();
+    const router = useRouter()
     const closestEvent = findClosestEvent(volleyEvents.filter((event) => event.shown !== false));
+    const redirectToCategory = (category: string) => { router.push(`/events/${closestEvent?.name}/${category}`) }
     const [eventPlace, setEventPlace] = useState<Place>();
 
     const formatDate = (inputDate: string) => {
@@ -69,8 +72,8 @@ export default function Page({ }: Props) {
                 {
                     closestEvent?.categories.map((c, i) => (
                         <div className='' key={i}>
-                            <h5 className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
-                                {c}
+                            <h5 onClick={() => { redirectToCategory(c.name) }} className={"w-11/12 bg-secondary hover:bg-secondary-900 transition-all px-6 py-2 text-3xl font-semibold text-shadow rounded-r-lg " + montserrat.className}>
+                                {c.name}
                             </h5>
                         </div>
                     ))

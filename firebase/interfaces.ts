@@ -19,7 +19,7 @@ export interface VolleyEvent {
   name: string;
   description: string;
   placeID: string;
-  categories: Category[] | null;
+  categories: Category[];
   startDate: string;
   endDate: string;
 }
@@ -38,13 +38,4 @@ export interface Team {
   pointsFavor: number;
   pointsAgainst: number;
   average: number;
-}
-
-export interface Group {
-  id: string,
-  name: string,
-  eventId: string,
-  fromCategory:string,
-  masc: boolean,
-  teamsInGroup: string[]
 }

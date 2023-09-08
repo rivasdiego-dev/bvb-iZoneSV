@@ -3,7 +3,6 @@ import { Team, VolleyEvent } from '@/firebase/interfaces';
 import { GetEventByID, defaultVolleyEvent } from '@/firebase/services/events';
 import { CreateNewTeam, defaultTeam } from '@/firebase/services/teams';
 import { Category } from '@/firebase/types';
-import useFetchEvents from '@/hooks/useFetchEvents';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeftLong } from 'react-icons/fa6';
@@ -43,6 +42,8 @@ export default function page({ params }: { params: { eventID: string} }) {
 
     function cleanForm(): void {
         setTeamInfo(defaultTeam);
+        document.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkbox) => { checkbox.checked = false });
+        document.querySelectorAll<HTMLInputElement>("input[type=radio]").forEach((radio) => { radio.checked = false });
     }
 
     const handleSubmit = (e: React.FormEvent) => {
