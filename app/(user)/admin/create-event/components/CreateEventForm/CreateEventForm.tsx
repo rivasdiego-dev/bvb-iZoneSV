@@ -15,7 +15,7 @@ type Props = {
     setEventID: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function CreateEventForm() {
+export default function CreateEventForm({ setEventID }: Props) {
 
     const [eventInfo, setEventInfo] = useState<VolleyEvent>(defaultVolleyEvent)
 
@@ -28,18 +28,19 @@ export default function CreateEventForm() {
         e.preventDefault();
         setEventInfo((prevInfo) => ({ ...prevInfo, shown: false }))
         console.log(eventInfo);
-        CreateNewEvent(eventInfo).then(() => {
-
+        CreateNewEvent(eventInfo).then((id) => {
+            setEventID(id)
+            console.log({CreateEventLog:id})
         })
-      };
+    };
 
     return (
         <>
             <div className="mb-6 grid grid-cols-2 gap-6 items-center">
-                
+
                 <EventName handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} />
 
-                <EventDescription handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm}/>
+                <EventDescription handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} />
 
                 <Categories handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} setEventInfo={setEventInfo} />
 
