@@ -1,26 +1,22 @@
 'use client'
 import { Team, VolleyEvent } from '@/firebase/interfaces';
-import { defaultVolleyEvent } from '@/firebase/services/events';
+import { GetEventByID, defaultVolleyEvent } from '@/firebase/services/events';
 import { CreateNewTeam, defaultTeam } from '@/firebase/services/teams';
+import { Category } from '@/firebase/types';
 import useFetchEvents from '@/hooks/useFetchEvents';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
-type Props = {}
 
-export default function page({ }: Props) {
+export default function page({ params }: { params: { eventID: string} }) {
     const router = useRouter();
-    const { volleyEvents, loading } = useFetchEvents();
-    const [categoryList, setCategoryList] = useState<string[]>([])
+    const eventID = params.eventID;
+    const [categoryList, setCategoryList] = useState<Category[] | null>([])
     const [teamInfo, setTeamInfo] = useState<Team>(defaultTeam);
     const [selectedEvent, setSelectedEvent] = useState<VolleyEvent>(defaultVolleyEvent);
 
     const handleGoBack = () => { router.replace('/admin') };
-
-    const handleSelectEvent = (volleyEvent: VolleyEvent) => {
-        setSelectedEvent(volleyEvent);
-    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -47,15 +43,23 @@ export default function page({ }: Props) {
 
     function cleanForm(): void {
         setTeamInfo(defaultTeam);
-        document.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkbox) => { checkbox.checked = false });
-        document.querySelectorAll<HTMLInputElement>("input[type=radio]").forEach((radio) => { radio.checked = false });
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        CreateNewTeam(teamInfo, selectedEvent.id)
+        CreateNewTeam(teamInfo, eventID)
         cleanForm();
     };
+
+    useEffect(() => {
+      const fetchEvent = async () => {
+        const fetchedEvent = await GetEventByID(eventID);
+        if (fetchedEvent)
+            setSelectedEvent(fetchedEvent);
+      }
+      fetchEvent()
+    }, [])
+    
 
     useEffect(() => {
         setCategoryList(selectedEvent.categories);
@@ -72,17 +76,6 @@ export default function page({ }: Props) {
             </header>
 
             <section className='flex mx-16'>
-                <div className="w-1/2">
-                    <p className='text-lg ml-6' >List of events</p>
-                    {
-                        loading ? <TeamLoader /> :
-                            <ul className='w-full text-xl ml-12'>
-                                {volleyEvents.map((e, i) => (
-                                    <li onClick={() => { handleSelectEvent(e) }} className='cursor-pointer w-1/2 hover:w-3/5 my-2 bg-secondary rounded py-2 px-4 hover:translate-x-2 transition-all' key={i}> {e.name} </li>
-                                ))}
-                            </ul>
-                    }
-                </div>
 
                 <div className="w-full">
                     <p className="text-center text-xl tracking-tighter">  Selected event: <span className='font-bold tracking-normal'>{selectedEvent.name}</span> </p>
@@ -141,20 +134,20 @@ export default function page({ }: Props) {
 
                                         <div className="mt-2 w-full flex gap-14 items-center">
                                             {
-                                                categoryList.map((c, i) => (
+                                                categoryList?.map((c, i) => (
                                                     <div key={i} className="flex gap-x-3">
                                                         <div className="flex items-center">
                                                             <input
                                                                 onChange={handleInputChange}
-                                                                id={c}
-                                                                name={c}
+                                                                id={c.name}
+                                                                name={c.name}
                                                                 type="checkbox"
                                                                 className="h-4 w-4 rounded "
                                                             />
                                                         </div>
                                                         <div className=" leading-6">
-                                                            <label htmlFor={c} className="font-medium">
-                                                                {c}
+                                                            <label htmlFor={c.name} className="font-medium">
+                                                                {c.name}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -215,19 +208,5 @@ export default function page({ }: Props) {
             </section>
 
         </main>
-    )
-}
-
-function TeamLoader() {
-    return (
-        <div role="status" className="max-w-sm animate-pulse">
-            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-            <span className="sr-only">Loading...</span>
-        </div>
     )
 }
