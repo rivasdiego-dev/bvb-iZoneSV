@@ -13,8 +13,6 @@ type Props = {
 
 export default function AddTeamsForm({ eventID }: Props) {
 
-    console.log({'AddTeamsForm': {eventID}})
-
     const [teamInfo, setTeamInfo] = useState<Team>(defaultTeam);
     const [categoryList, setCategoryList] = useState<Category[]>([])
     const [selectedEvent, setSelectedEvent] = useState<VolleyEvent>(defaultVolleyEvent);

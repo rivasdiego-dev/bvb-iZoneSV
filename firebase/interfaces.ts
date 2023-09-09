@@ -39,3 +39,21 @@ export interface Team {
   pointsAgainst: number;
   average: number;
 }
+
+export interface Game {
+  id: string;
+  masc: boolean;
+  eventID: string;
+  category: string;
+  group: string;
+  finished: boolean;
+  winnerID?: string;
+  team1ID: string;
+  team1Name: string;
+  team1Sets: number;
+  team1Points: number;
+  team2ID: string;
+  team2Name: string;
+  team2Sets: number;
+  team2Points: number;
+}

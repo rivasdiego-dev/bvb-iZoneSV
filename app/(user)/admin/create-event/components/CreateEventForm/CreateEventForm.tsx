@@ -42,7 +42,7 @@ export default function CreateEventForm({ setEventID }: Props) {
 
                 <EventDescription handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} />
 
-                <Categories handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} setEventInfo={setEventInfo} />
+                <Categories inputDefaultForm={inputDefaultForm} setEventInfo={setEventInfo} />
 
                 <SelectPlace handleInputChange={handleInputChange} inputDefaultForm={inputDefaultForm} />
 

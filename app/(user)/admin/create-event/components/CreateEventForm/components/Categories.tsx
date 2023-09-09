@@ -5,11 +5,10 @@ import { FaX } from 'react-icons/fa6'
 
 type Props = {
     inputDefaultForm: string,
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void,
     setEventInfo: (value: SetStateAction<VolleyEvent>) => void,
 }
 
-export default function Categories({ inputDefaultForm, setEventInfo, handleInputChange }: Props) {
+export default function Categories({ inputDefaultForm, setEventInfo }: Props) {
 
     const [categoryList, setCategoryList] = useState<Category[]>([])
     const [category, setCategory] = useState<Category>(defaultCategory)

@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { firebaseDB } from "../app";
 import { Place, VolleyEvent } from "../interfaces";
+import { Category } from "../types";
 
 export const defaultVolleyEvent: VolleyEvent = {
   id: "",
@@ -88,7 +89,8 @@ export async function DeleteEvent(ID: string) {
   try {
     const docRef = doc(firebaseDB, "events", ID);
     await deleteDoc(docRef);
-  } catch (error) { console.log(error);
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -117,7 +119,7 @@ export async function CreateNewEvent(volleyEvent: VolleyEvent) {
     console.error(error);
   }
 
-  return newEventRef.id
+  return newEventRef.id;
 }
 
 export async function UpdateEvent(volleyEvent: VolleyEvent) {
@@ -126,5 +128,32 @@ export async function UpdateEvent(volleyEvent: VolleyEvent) {
     await setDoc(docRef, volleyEvent);
   } catch (error) {
     console.log("Error updating event:", error);
+  }
+}
+
+export async function UpdateEventCategory(
+  volleyEventID: string,
+  updatedCategory: Category
+) {
+  try {
+    // Fetch the current event document
+    const docRef = doc(firebaseDB, "events", volleyEventID);
+    const eventDoc = await getDoc(docRef);
+
+    if (eventDoc.exists()) {
+      // Get the current event data
+      const eventData = eventDoc.data() as VolleyEvent;
+      // Find the index of the category you want to update
+      const categoryIndex = eventData.categories.findIndex((category) => category.name === updatedCategory.name);
+      
+      if (categoryIndex !== -1) {
+        // Update the category with the new data
+        eventData.categories[categoryIndex] = updatedCategory;
+        // Update the event document in Firestore with the modified data
+        await setDoc(docRef, eventData);
+      }
+    }
+  } catch (error) {
+    console.log("Error updating event category:", error);
   }
 }

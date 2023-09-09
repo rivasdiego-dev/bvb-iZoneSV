@@ -1,9 +1,11 @@
+import { Team } from "./interfaces";
+
 export type Role = "user" | "admin" | "ref";
 
 export type Group = {
     name: string,
     masc: boolean,
-    teams: string[],
+    teams: Team[],
 }
 
 export type Category = {

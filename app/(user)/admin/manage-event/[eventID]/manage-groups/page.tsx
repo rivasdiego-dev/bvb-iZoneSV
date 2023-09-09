@@ -25,13 +25,6 @@ export default function Page({ params }: { params: { eventID: string } }) {
     fetchInfo()
   }, [])
 
-  const testteams: string[] = [
-    '6m-a', '8m-a', '1m-a', '2m-a', '5m-a', '3m-a', '7m-a', '4m-a'
-  ];
-  const numberOfGroups: number = 3; // Change this to the desired number of groups
-  const result: Group[] = divideTeamsIntoGroups(testteams, numberOfGroups, true);
-  console.log(result);
-
   return (
     <div>
       {categories.map((c, i) => (
@@ -60,7 +53,7 @@ function FilterTeamsByCategoryAndGender(teams: Team[], category: string, isMasc:
   return teams.filter(t => (t.masc === isMasc && t.categories.includes(category)))
 }
 
-function divideTeamsIntoGroups(teams: string[], N: number, isMasc: boolean): Group[] {
+function divideTeamsIntoGroups(teams: Team[], N: number, isMasc: boolean): Group[] {
   const groups: Group[] = [];
 
   for (let i = 0; i < N; i++) {
