@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto_Condensed } from 'next/font/google'
 import './globals.css'
 
-const roboto = Roboto_Condensed({ subsets: ['latin'], weight: ['300', '400', '700'] })
+const roboto = Roboto_Condensed({ subsets: ['latin-ext'], weight: ['300', '400', '700'] })
 
 export const metadata: Metadata = {
   title: 'iZoneSV',
