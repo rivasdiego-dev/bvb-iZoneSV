@@ -94,6 +94,8 @@ function generateGamesFromCategories(categories: Category[]): Game[] {
         for (let j = i + 1; j < groupTeams.length; j++) {
           const game: Game = {
             id: '',
+            winnerID: '',
+            finished: false,
             gender: groupTeams[i].gender,
             eventID: groupTeams[i].eventId,
             category: category.name,
@@ -106,8 +108,6 @@ function generateGamesFromCategories(categories: Category[]): Game[] {
             team2Name: groupTeams[j].teamName,
             team2Sets: 0,
             team2Points: 0,
-            finished: false,
-            winnerID: '',
           };
           games.push(game);
         }
