@@ -15,6 +15,7 @@ export default function TeamMembers({ handleInputChange, teamInfo }: Props) {
                     <div className="flex rounded-md shadow-sm">
                         <span className="flex select-none items-center px-3 bg-secondary-900 rounded-l-md">Jugador(a) 1</span>
                         <input
+                            required={true}
                             value={teamInfo.player1}
                             onChange={handleInputChange}
                             autoComplete='off'
@@ -29,6 +30,7 @@ export default function TeamMembers({ handleInputChange, teamInfo }: Props) {
                     <div className="flex rounded-md shadow-sm">
                         <span className="flex select-none items-center px-3 bg-secondary-900 rounded-l-md">Jugador(a) 2</span>
                         <input
+                            required={true}
                             value={teamInfo.player2}
                             onChange={handleInputChange}
                             autoComplete='off'

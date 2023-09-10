@@ -42,12 +42,12 @@ export default function TeamsAndCategories({ eventID, displayTeamsState, selecte
 
     return (
         <>
-            <ul className="basis-1/3">
+            <ul className="basis-1/6">
                 {categories.map((c, i) => (
                     <li
                         key={i}
                         onClick={() => handleSelectCategory(c)}
-                        className={`${selectedCategory.name === c.name ? 'bg-secondary-700' : 'bg-secondary-950'} w-2/4 hover:translate-x-6 text-lg pl-4 p-1 my-4 rounded transition-all cursor-pointer`}
+                        className={`${selectedCategory.name === c.name ? 'bg-secondary-700' : 'bg-secondary-950'} w-9/12 hover:translate-x-6 text-lg pl-4 p-1 my-4 rounded transition-all cursor-pointer`}
                     >
                         {c.name}
                     </li>

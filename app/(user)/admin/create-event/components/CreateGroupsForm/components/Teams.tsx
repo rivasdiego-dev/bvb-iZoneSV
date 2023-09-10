@@ -8,7 +8,7 @@ type Props = {
 
 export default function Teams({ displayTeams }: Props) {
     return (
-        <div className="basis-2/3 flex">
+        <div className="basis-5/6 flex">
             <section className='basis-full'>
                 <p className='text-center'> Masculino </p>
                 <ul>

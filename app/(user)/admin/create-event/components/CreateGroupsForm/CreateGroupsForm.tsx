@@ -26,7 +26,6 @@ export default function CreateGroupsForm({ eventID }: Props) {
             <Title> Creación de grupos </Title>
             <section className='flex flex-wrap gap-y-8 px-12'>
 
-
                 <TeamsAndCategories eventID={eventID} displayTeamsState={displayTeamsState} selectedCategoryState={selectedCategoryState} />
 
                 <Groups groups={groupsState[0]} selectedCategory={selectedCategoryState[0]} />

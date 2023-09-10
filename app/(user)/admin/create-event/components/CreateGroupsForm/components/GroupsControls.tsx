@@ -44,7 +44,7 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
     };
 
     useEffect(() => {
-        setSelectedCategory(prev => ({ ...prev, groups: [...groups.men, ...groups.women] }))
+        setSelectedCategory(prev => ({ ...prev, groups: [...groups.men, ...groups.women, ...groups.mix] }))
     }, [groups])
 
 
@@ -66,8 +66,8 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
                 Crear grupos mixtos
             </button>
 
-            <button onClick={handleSaveGroups} type='button' disabled={(groups.men.length === 0 && groups.women.length === 0)}
-                className={`${(groups.men.length === 0 && groups.women.length === 0) ? 'cursor-not-allowed text-slate-900' : ''} mx-auto px-6 bg-blue-600 rounded py-1 xl:whitespace-nowrap`} >
+            <button onClick={handleSaveGroups} type='button' disabled={(groups.men.length === 0 && groups.mix.length === 0 && groups.women.length === 0)}
+                className={`${(groups.men.length === 0 && groups.women.length === 0 && groups.mix.length === 0) ? 'cursor-not-allowed text-slate-900' : ''} mx-auto px-6 bg-blue-600 rounded py-1 xl:whitespace-nowrap`} >
                 Guardar grupos
             </button>
 
@@ -76,15 +76,32 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
 }
 
 function divideTeamsIntoGroups(teams: Team[], N: number, gender: Gender): Group[] {
-    return Array.from({ length: N }, (_, i) => {
+    // Ensure N does not exceed the number of teams available
+    N = Math.min(N, teams.length);
+
+    const teamsPerGroup = Math.floor(teams.length / N);
+    const remainder = teams.length % N;
+
+    let startIndex = 0;
+    const groups: Group[] = [];
+
+    for (let i = 0; i < N; i++) {
         const groupName = String.fromCharCode(65 + i);
-        const start = i * Math.ceil(teams.length / N);
-        const end = (i + 1) * Math.ceil(teams.length / N);
-        const groupTeams = teams.slice(start, end);
-        return {
+        let groupSize = teamsPerGroup;
+
+        if (i < remainder) {
+            groupSize++; // Distribute the remainder teams
+        }
+
+        const groupTeams = teams.slice(startIndex, startIndex + groupSize);
+        startIndex += groupSize;
+
+        groups.push({
             name: groupName,
             gender: gender,
             teams: groupTeams,
-        };
-    });
+        });
+    }
+
+    return groups;
 }

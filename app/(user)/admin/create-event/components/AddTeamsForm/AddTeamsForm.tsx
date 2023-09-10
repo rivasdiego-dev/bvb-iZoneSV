@@ -21,10 +21,7 @@ export default function AddTeamsForm({ eventID }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         CreateNewTeam(teamInfo, eventID)
-
-        setTeamInfo(defaultTeam);
-        document.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkbox) => { checkbox.checked = false });
-        document.querySelectorAll<HTMLInputElement>("input[type=radio]").forEach((radio) => { radio.checked = false });
+        setTeamInfo(prev => ({ ...prev, player1: '', player2: '', id: '', teamName: '' }));
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +74,7 @@ export default function AddTeamsForm({ eventID }: Props) {
                     </div>
                 </div>
 
-                <button onClick={handleSubmit} type='button'
+                <button onClick={handleSubmit}
                     className="rounded-md w-fit self-end bg-blue-600 px-3 py-2 text-shadow-sm text-lg hover:bg-blue-800 transition-all">
                     Agregar equipo al evento
                 </button>

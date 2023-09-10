@@ -35,10 +35,10 @@ export default function GamesForm({ eventID }: Props) {
           {allGames.map((g, i) => {
             if (g.gender === 'man')
               return (
-                <li className="grid grid-flow-col-dense rounded py-2 px-4 my-2.5 bg-slate-800">
-                  <p>{g.team1Name} </p>
+                <li className="grid grid-cols-7 text-center rounded py-2 px-4 my-2.5 bg-slate-800">
+                  <p className='col-span-2'>{g.team1Name} </p>
                   <span className='font-bold text-xl leading-none'>v.s</span>
-                  <p> {g.team2Name}</p>
+                  <p className='col-span-2'> {g.team2Name}</p>
                   <p> {g.group}</p>
                   <p> {g.category} </p>
                 </li>
@@ -51,10 +51,10 @@ export default function GamesForm({ eventID }: Props) {
           {allGames.map((g, i) => {
             if (g.gender === 'woman')
               return (
-                <li className="grid grid-flow-col-dense rounded py-2 px-4 my-2.5 bg-slate-800">
-                  <p>{g.team1Name} </p>
+                <li className="grid grid-cols-7 text-center rounded py-2 px-4 my-2.5 bg-slate-800">
+                  <p className='col-span-2'>{g.team1Name} </p>
                   <span className='font-bold text-xl leading-none'>v.s</span>
-                  <p> {g.team2Name}</p>
+                  <p className='col-span-2'> {g.team2Name}</p>
                   <p> {g.group}</p>
                   <p> {g.category} </p>
                 </li>
@@ -67,10 +67,10 @@ export default function GamesForm({ eventID }: Props) {
           {allGames.map((g, i) => {
             if (g.gender === 'mix')
               return (
-                <li className="grid grid-flow-col-dense rounded py-2 px-4 my-2.5 bg-slate-800">
-                  <p>{g.team1Name} </p>
+                <li className="grid grid-cols-7 text-center rounded py-2 px-4 my-2.5 bg-slate-800">
+                  <p className='col-span-2'>{g.team1Name} </p>
                   <span className='font-bold text-xl leading-none'>v.s</span>
-                  <p> {g.team2Name}</p>
+                  <p className='col-span-2'> {g.team2Name}</p>
                   <p> {g.group}</p>
                   <p> {g.category} </p>
                 </li>
