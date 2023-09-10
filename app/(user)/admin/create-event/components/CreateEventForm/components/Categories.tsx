@@ -36,7 +36,7 @@ export default function Categories({ inputDefaultForm, setEventInfo }: Props) {
     return (
         <>
             <div>
-                <label htmlFor="event-categories" className="block text-lg font-medium" > Event categories </label>
+                <label htmlFor="event-categories" className="block text-lg font-medium" > Categorías del evento </label>
                 <div className='flex flex-col lg:flex-row gap-2 '>
                     <input
                         type="text"
@@ -46,12 +46,12 @@ export default function Categories({ inputDefaultForm, setEventInfo }: Props) {
                         onChange={handleCategoryInputChange}
                         className={inputDefaultForm}
                     />
-                    <button onClick={handleAddCategory} className='bg-secondary-950 rounded px-3 whitespace-nowrap focus:outline-none'> Add Category </button>
+                    <button onClick={handleAddCategory} className='bg-secondary-950 rounded px-3 whitespace-nowrap focus:outline-none'> Agregar Categoria </button>
                 </div>
             </div>
 
             <div className='h-full xl:row-span-2 row-span-1'>
-                <label htmlFor="event-categories" className="block text-lg font-medium" > Current categories </label>
+                <label htmlFor="event-categories" className="block text-lg font-medium" > Categorías actuales </label>
                 <div className="flex flex-wrap gap-6 justify-around">
                     {
                         categoryList.map(category => (

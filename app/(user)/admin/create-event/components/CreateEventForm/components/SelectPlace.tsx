@@ -25,7 +25,7 @@ export default function SelectPlace({ inputDefaultForm, handleInputChange }: Pro
     return (
         <>
             <div>
-                <label htmlFor="event-place" className="block text-lg font-medium" > Event place </label>
+                <label htmlFor="event-place" className="block text-lg font-medium" > Lugar del evento </label>
                 <select name='placeID' onChange={handleInputChange} id="event-place" className={inputDefaultForm} >
                     {
                         places.map((place, index) => (

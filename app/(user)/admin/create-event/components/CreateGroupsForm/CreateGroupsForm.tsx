@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import TeamsAndCategories from './components/TeamsAndCategories';
 import Groups from './components/Groups';
 import GroupsControls from './components/GroupsControls';
+import Title from '../Title';
 
 type Props = {
     eventID: string;
@@ -21,14 +22,18 @@ export default function CreateGroupsForm({ eventID }: Props) {
 
 
     return (
-        <section className='flex flex-wrap gap-y-8 px-12'>
+        <>
+            <Title> Creación de grupos </Title>
+            <section className='flex flex-wrap gap-y-8 px-12'>
 
-            <TeamsAndCategories eventID={eventID} displayTeamsState={displayTeamsState} selectedCategoryState={selectedCategoryState} />
 
-            <Groups groups={groupsState[0]} selectedCategory={selectedCategoryState[0]} />
+                <TeamsAndCategories eventID={eventID} displayTeamsState={displayTeamsState} selectedCategoryState={selectedCategoryState} />
 
-            <GroupsControls eventID={eventID} selectedCategoryState={selectedCategoryState} groupsState={groupsState} displayTeams={displayTeamsState[0]} />
+                <Groups groups={groupsState[0]} selectedCategory={selectedCategoryState[0]} />
 
-        </section>
+                <GroupsControls eventID={eventID} selectedCategoryState={selectedCategoryState} groupsState={groupsState} displayTeams={displayTeamsState[0]} />
+
+            </section>
+        </>
     );
 }

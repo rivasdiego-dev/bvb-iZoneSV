@@ -17,7 +17,7 @@ export default function TeamCategory({ categoryList, setTeamInfo, handleInputCha
 
     return (
         <fieldset className="flex flex-row">
-            <legend className="text-base font-semibold leading-7">Team Category</legend>
+            <legend className="text-base font-semibold leading-7">Categoría(s)</legend>
             <div className="mt-2 w-full flex gap-14 items-center">
                 {
                     categoryList.map((c, i) => (

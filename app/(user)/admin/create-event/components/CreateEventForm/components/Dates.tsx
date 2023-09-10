@@ -9,7 +9,7 @@ export default function Dates({ handleInputChange, inputDefaultForm }: Props) {
     return (
         <div className="flex gap-6">
             <div className="w-full">
-                <label htmlFor="event-start-date" className="block text-lg font-medium" > Event Start Date </label>
+                <label htmlFor="event-start-date" className="block text-lg font-medium" > Fecha de inicio </label>
                 <input
                     name='startDate'
                     onChange={handleInputChange}
@@ -20,7 +20,7 @@ export default function Dates({ handleInputChange, inputDefaultForm }: Props) {
                 />
             </div>
             <div className="w-full">
-                <label htmlFor="event-start-date" className="block text-lg font-medium" > Event End Date </label>
+                <label htmlFor="event-start-date" className="block text-lg font-medium" > Fecha de finalización </label>
                 <input
                     name='endDate'
                     onChange={handleInputChange}

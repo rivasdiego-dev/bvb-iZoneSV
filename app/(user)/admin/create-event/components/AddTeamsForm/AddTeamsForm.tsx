@@ -6,6 +6,7 @@ import TeamMembers from './components/TeamMembers';
 import TeamGender from './components/TeamGender';
 import { Category } from '@/firebase/types';
 import { GetEventByID, defaultVolleyEvent } from '@/firebase/services/events';
+import Title from '../Title';
 
 type Props = {
     eventID: string
@@ -57,32 +58,30 @@ export default function AddTeamsForm({ eventID }: Props) {
 
     return (
         <>
+            <Title> Equipos del evento </Title>
+            <p className="my-4  leading-6 text-slate-300">
+                Completa el siguiente formulario cuantas veces sea necesario con la información de cada uno de los equipos que participaran en el evento.
+            </p>
 
-            <div className="space-y-12">
-                <div className="border-b border-white/90 pb-12">
-                    <p className="mt-1  leading-6">
-                        Fill the necesary information about the new team to add.
-                    </p>
+            <div className="space-y-6 flex flex-col">
+                <TeamMembers handleInputChange={handleInputChange} teamInfo={teamInfo} />
 
-                    <TeamMembers handleInputChange={handleInputChange} teamInfo={teamInfo} />
+                <div className="border border-white"></div>
 
-                </div>
-
-                <div className="border-b border-gray-900/10 pb-12">
-                    <div className="mt-10 space-y-10">
-
+                <div className="border-b border-gray-900/10">
+                    <div className="space-y-4">
                         <TeamCategory handleInputChange={handleInputChange} categoryList={categoryList} setTeamInfo={setTeamInfo} />
-
                         <TeamGender handleInputChange={handleInputChange} />
-
                     </div>
                 </div>
 
+                <button onClick={handleSubmit} type='button'
+                    className="rounded-md w-fit self-end bg-blue-600 px-3 py-2 text-shadow-sm text-lg hover:bg-blue-800 transition-all">
+                    Agregar equipo al evento
+                </button>
             </div>
 
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button onClick={handleSubmit} type='button' className="rounded-md bg-primary px-3 py-2  font-semibold text-white shadow-sm hover:bg-primary-400"> Save new team </button>
-            </div>
+
 
         </>
     )

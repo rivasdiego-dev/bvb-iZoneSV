@@ -40,39 +40,23 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
     return (
         <div className="flex items-center lg:flex-nowrap flex-wrap m-auto mt-8 gap-4">
             <p className=''>Número de grupos a crear:</p>
-            <input
-                onChange={handleInputChange}
-                value={groupsNumber}
-                name='groupsNumber'
-                autoComplete='off'
-                type="number"
-                className='tracking-wide rounded py-1 px-2 bg-transparent focus:outline-none '
-                id="groupsNumber"
-            />
-            <button
-                onClick={() => { handleCreateGroups(true) }}
-                type='button'
-                className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}
-            >
+
+            <input onChange={handleInputChange} value={groupsNumber} name='groupsNumber' autoComplete='off' type="number" className='tracking-wide rounded py-1 px-2 bg-transparent focus:outline-none ' id="groupsNumber" />
+
+            <button onClick={() => { handleCreateGroups(true) }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
                 Crear grupos masculinos
             </button>
-            <button
-                onClick={() => { handleCreateGroups(false) }}
-                type='button'
-                className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}
-            >
+
+            <button onClick={() => { handleCreateGroups(false) }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
                 Crear grupos femeninos
             </button>
-            <button
-                onClick={handleSaveGroups}
-                type='button'
-                disabled={(groups.men.length === 0 && groups.women.length === 0)}
-                className={`${(groups.men.length === 0 && groups.women.length === 0) ? 'cursor-not-allowed text-slate-900' : ''} mx-auto px-6 bg-blue-600 rounded py-1 xl:whitespace-nowrap`}
-            >
+
+            <button onClick={handleSaveGroups} type='button' disabled={(groups.men.length === 0 && groups.women.length === 0)}
+                className={`${(groups.men.length === 0 && groups.women.length === 0) ? 'cursor-not-allowed text-slate-900' : ''} mx-auto px-6 bg-blue-600 rounded py-1 xl:whitespace-nowrap`} >
                 Guardar grupos
             </button>
-        </div>
 
+        </div>
     )
 }
 

@@ -7,7 +7,7 @@ type Props = {
 export default function TeamGender({ handleInputChange }: Props) {
     return (
         <fieldset>
-            <legend className="text-base font-semibold leading-7">Team Gender</legend>
+            <legend className="text-base font-semibold leading-7"> Género </legend>
 
             <div className="mt-2 flex gap-14">
 
@@ -20,7 +20,7 @@ export default function TeamGender({ handleInputChange }: Props) {
                         className="h-4 w-4"
                     />
                     <label htmlFor="men" className="block  font-medium leading-6">
-                        Men
+                        Masculino
                     </label>
                 </div>
 
@@ -33,7 +33,7 @@ export default function TeamGender({ handleInputChange }: Props) {
                         className="h-4 w-4"
                     />
                     <label htmlFor="women" className="block  font-medium leading-6">
-                        Women
+                        Femenino
                     </label>
                 </div>
 

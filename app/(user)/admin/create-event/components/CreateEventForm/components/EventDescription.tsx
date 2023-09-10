@@ -8,7 +8,7 @@ type Props = {
 export default function EventDescription({ handleInputChange, inputDefaultForm }: Props) {
     return (
         <div>
-            <label htmlFor="event-desc" className="block text-lg font-medium" > Event description </label>
+            <label htmlFor="event-desc" className="block text-lg font-medium" > Descripción del evento </label>
             <textarea
                 name='description'
                 onChange={handleInputChange}

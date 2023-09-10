@@ -8,7 +8,7 @@ type Props = {
 export default function EventName({ handleInputChange, inputDefaultForm }: Props) {
     return (
         <div className='col-span-2'>
-            <label htmlFor="event-name" className="block text-lg font-medium" > Event name </label>
+            <label htmlFor="event-name" className="block text-lg font-medium" > Nombre del evento </label>
             <input
                 onChange={handleInputChange}
                 name='name'
