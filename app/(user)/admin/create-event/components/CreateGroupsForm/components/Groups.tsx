@@ -31,6 +31,18 @@ export default function Groups({ groups, selectedCategory }: Props) {
                     </ol>
                 ))}
             </div>
+
+            <div className='basis-full flex flex-col'>
+                <p> Grupos Mixtos {selectedCategory.name} </p>
+                {groups.mix.map((g, i) => (
+                    <ol className="" key={i}>
+                        <p className='font-bold'> Grupo {g.name} </p>
+                        {g.teams.map((t, j) => (
+                            <li className='px-2 py-1 mb-2 bg-slate-700 rounded cursor-grab' key={j}>{j + 1}. {t.teamName}</li>
+                        ))}
+                    </ol>
+                ))}
+            </div>
         </div>
     )
 }

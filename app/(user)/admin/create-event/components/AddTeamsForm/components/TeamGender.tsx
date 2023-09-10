@@ -37,6 +37,19 @@ export default function TeamGender({ handleInputChange }: Props) {
                     </label>
                 </div>
 
+                <div className="flex items-center gap-x-3">
+                    <input
+                        onChange={handleInputChange}
+                        id="mix"
+                        name="masc"
+                        type="radio"
+                        className="h-4 w-4"
+                    />
+                    <label htmlFor="mix" className="block  font-medium leading-6">
+                        Mixto
+                    </label>
+                </div>
+
             </div>
         </fieldset>
     )

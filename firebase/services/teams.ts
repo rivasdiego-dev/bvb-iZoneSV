@@ -12,7 +12,7 @@ import { Team } from "../interfaces";
 export const defaultTeam: Team = {
   id: "",
   eventId: "",
-  masc: false,
+  gender: "man",
   player1: "",
   player2: "",
   teamName: "",

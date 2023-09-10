@@ -1,4 +1,4 @@
-import { Category, Role } from "./types";
+import { Category, Gender, Role } from "./types";
 
 export interface User {
   id: string;
@@ -27,7 +27,7 @@ export interface VolleyEvent {
 export interface Team {
   id: string;
   eventId: string;
-  masc: boolean;
+  gender: Gender;
   player1: string;
   player2: string;
   teamName: string;
@@ -42,12 +42,12 @@ export interface Team {
 
 export interface Game {
   id: string;
-  masc: boolean;
+  gender: Gender;
   eventID: string;
   category: string;
   group: string;
   finished: boolean;
-  winnerID?: string;
+  winnerID: string;
   team1ID: string;
   team1Name: string;
   team1Sets: number;

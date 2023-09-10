@@ -1,7 +1,7 @@
 import { Team } from '@/firebase/interfaces';
 import { GetEventByID } from '@/firebase/services/events';
 import { GetAllTeamsFromEvent } from '@/firebase/services/teams';
-import { Category, TeamsToDisplay } from '@/firebase/types';
+import { Category, Gender, TeamsToDisplay } from '@/firebase/types';
 import { useEffect, useState } from 'react';
 import Teams from './Teams';
 
@@ -34,8 +34,9 @@ export default function TeamsAndCategories({ eventID, displayTeamsState, selecte
 
     useEffect(() => {
         setDisplayTeams({
-            men: filterTeams(selectedCategory.name, true, teams),
-            women: filterTeams(selectedCategory.name, false, teams)
+            men: filterTeams(selectedCategory.name, 'man', teams),
+            women: filterTeams(selectedCategory.name, 'woman', teams),
+            mix: filterTeams(selectedCategory.name, 'mix', teams),
         });
     }, [selectedCategory]);
 
@@ -60,6 +61,6 @@ export default function TeamsAndCategories({ eventID, displayTeamsState, selecte
 }
 
 
-function filterTeams(category: string, isMasc: boolean, teams: Team[]) {
-    return teams.filter((t) => t.categories.includes(category) && t.masc === isMasc);
+function filterTeams(category: string, gender: Gender, teams: Team[]) {
+    return teams.filter((t) => t.categories.includes(category) && t.gender === gender);
 }

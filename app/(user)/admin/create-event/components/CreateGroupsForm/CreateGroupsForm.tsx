@@ -14,8 +14,8 @@ type Props = {
 export default function CreateGroupsForm({ eventID }: Props) {
 
     const selectedCategoryState = useState<Category>(defaultCategory);
-    const displayTeamsState = useState<TeamsToDisplay>({ men: [], women: [] });
-    const groupsState = useState<GroupsToDisplay>({ men: [], women: [] });
+    const displayTeamsState = useState<TeamsToDisplay>({ men: [], women: [], mix: [] });
+    const groupsState = useState<GroupsToDisplay>({ men: [], women: [], mix: [] });
 
 
     useEffect(() => { }, [selectedCategoryState[0]])

@@ -24,7 +24,7 @@ export default function Page() {
 
     return (
         <div className='w-2/3 border-white border p-8 my-4 mx-auto rounded-lg relative'>
-            <form action=''>
+            <form className='' action=''>
                 <div className='absolute top-2 right-2'>
                     {currentStepIndex + 1} / {steps.length}
                 </div>

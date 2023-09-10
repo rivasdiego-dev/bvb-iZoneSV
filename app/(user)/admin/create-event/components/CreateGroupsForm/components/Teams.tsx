@@ -13,7 +13,7 @@ export default function Teams({ displayTeams }: Props) {
                 <p className='text-center'> Masculino </p>
                 <ul>
                     {displayTeams.men.map((t, i) => (
-                        t.masc && <li key={i}>{i + 1}. {t.teamName}</li>
+                        <li key={i}>{i + 1}. {t.teamName}</li>
                     ))}
                 </ul>
             </section>
@@ -22,7 +22,16 @@ export default function Teams({ displayTeams }: Props) {
                 <p className='text-center'> Femenino </p>
                 <ul>
                     {displayTeams.women.map((t, i) => (
-                        !t.masc && <li key={i}>{i + 1}. {t.teamName}</li>
+                        <li key={i}>{i + 1}. {t.teamName}</li>
+                    ))}
+                </ul>
+            </section>
+
+            <section className='basis-full'>
+                <p className='text-center'> Mixto </p>
+                <ul>
+                    {displayTeams.mix.map((t, i) => (
+                        <li key={i}>{i + 1}. {t.teamName}</li>
                     ))}
                 </ul>
             </section>

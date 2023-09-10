@@ -34,9 +34,11 @@ export default function AddTeamsForm({ eventID }: Props) {
                 const updatedCategories = checked ? [...prevInfo.categories, name] : prevInfo.categories.filter((cat) => cat !== name);
                 return { ...prevInfo, categories: updatedCategories };
             } else if (type === 'radio' && id === 'men') {
-                return { ...prevInfo, masc: true };
+                return { ...prevInfo, gender: 'man' };
             } else if (type === 'radio' && id === 'women') {
-                return { ...prevInfo, masc: false };
+                return { ...prevInfo, gender: 'woman' };
+            } else if (type === 'radio' && id === 'mix') {
+                return { ...prevInfo, gender: 'mix' };
             } else {
                 return { ...prevInfo, [name]: value };
             }

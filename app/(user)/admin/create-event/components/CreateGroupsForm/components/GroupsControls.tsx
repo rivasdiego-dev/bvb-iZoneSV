@@ -1,6 +1,6 @@
 import { Team } from '@/firebase/interfaces';
 import { UpdateEventCategory } from '@/firebase/services/events';
-import { Category, Group, GroupsToDisplay, TeamsToDisplay, defaultCategory } from '@/firebase/types';
+import { Category, Gender, Group, GroupsToDisplay, TeamsToDisplay } from '@/firebase/types';
 import React, { useEffect, useState } from 'react';
 
 type Props = {
@@ -21,14 +21,25 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
         setGroupsNumber(e.target.valueAsNumber);
     };
 
-    const handleCreateGroups = (isMasc: boolean) => {
-        if (isMasc) setGroups(prevGroups => ({ ...prevGroups, men: divideTeamsIntoGroups(displayTeams.men, groupsNumber, isMasc) }));
-        else setGroups(prevGroups => ({ ...prevGroups, women: divideTeamsIntoGroups(displayTeams.women, groupsNumber, isMasc) }));
+    const handleCreateGroups = (gender: Gender) => {
+        switch (gender) {
+            case 'man':
+                setGroups((prevGroups) => ({ ...prevGroups, men: divideTeamsIntoGroups(displayTeams.men, groupsNumber, gender), }));
+                break;
+            case 'woman':
+                setGroups((prevGroups) => ({ ...prevGroups, women: divideTeamsIntoGroups(displayTeams.women, groupsNumber, gender), }));
+                break;
+            case 'mix':
+                setGroups((prevGroups) => ({ ...prevGroups, mix: divideTeamsIntoGroups(displayTeams.mix, groupsNumber, gender), }));
+                break;
+            default:
+                break;
+        }
     };
 
     const handleSaveGroups = () => {
         UpdateEventCategory(eventID, selectedCategory)
-        setGroups({ men: [], women: [] });
+        setGroups({ men: [], women: [], mix: [] });
         setGroupsNumber(0);
     };
 
@@ -43,12 +54,16 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
 
             <input onChange={handleInputChange} value={groupsNumber} name='groupsNumber' autoComplete='off' type="number" className='tracking-wide rounded py-1 px-2 bg-transparent focus:outline-none ' id="groupsNumber" />
 
-            <button onClick={() => { handleCreateGroups(true) }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
+            <button onClick={() => { handleCreateGroups('man') }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
                 Crear grupos masculinos
             </button>
 
-            <button onClick={() => { handleCreateGroups(false) }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
+            <button onClick={() => { handleCreateGroups('woman') }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
                 Crear grupos femeninos
+            </button>
+
+            <button onClick={() => { handleCreateGroups('mix') }} type='button' className={`mx-auto px-6 bg-slate-600 rounded py-1 xl:whitespace-nowrap`}>
+                Crear grupos mixtos
             </button>
 
             <button onClick={handleSaveGroups} type='button' disabled={(groups.men.length === 0 && groups.women.length === 0)}
@@ -60,7 +75,7 @@ export default function GroupsControls({ eventID, groupsState, selectedCategoryS
     )
 }
 
-function divideTeamsIntoGroups(teams: Team[], N: number, isMasc: boolean): Group[] {
+function divideTeamsIntoGroups(teams: Team[], N: number, gender: Gender): Group[] {
     return Array.from({ length: N }, (_, i) => {
         const groupName = String.fromCharCode(65 + i);
         const start = i * Math.ceil(teams.length / N);
@@ -68,7 +83,7 @@ function divideTeamsIntoGroups(teams: Team[], N: number, isMasc: boolean): Group
         const groupTeams = teams.slice(start, end);
         return {
             name: groupName,
-            masc: isMasc,
+            gender: gender,
             teams: groupTeams,
         };
     });
